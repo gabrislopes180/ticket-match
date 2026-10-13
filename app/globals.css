@@ -1,26 +1,133 @@
 @import "tailwindcss";
+@import "@heroui/styles";
 
+/*
+ * Ticket Match V0 — design tokens (dark only).
+ * Os nomes que o HeroUI já conhece (--background, --surface, --accent, ...)
+ * são sobrescritos aqui para que os componentes herdem o design system.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+
+  /* Superfícies */
+  --background: #09001a;
+  --surface: #160d27;
+  --surface-raised: #1f192f;
+  --surface-high: #2e263b;
+  --line: #2a2237;
+
+  /* Texto */
+  --foreground: #ffffff;
+  --muted-foreground: #9a93a8;
+  --accent-text: #cdb4fb;
+
+  /* Marca */
+  --lavender: #9d76f8;
+  --primary: #8b17e9;
+  --primary-deep: #60109d;
+  --success: #4ade80;
+
+  /* Gradientes */
+  --gradient-action: linear-gradient(135deg, #60109d 0%, #8b17e9 100%);
+  --gradient-headline: linear-gradient(90deg, #9d76f8 0%, #cdb4fb 100%);
+  --gradient-glow: radial-gradient(ellipse at 50% 100%, #3b0c71 0%, #09001a 70%);
+
+  /* Sombras */
+  --shadow-glow: 0 0 48px rgba(139, 23, 233, 0.45);
+  --shadow-card: 0 24px 48px rgba(0, 0, 0, 0.45);
+
+  /* Mapeamento para as variáveis de tema do HeroUI */
+  --surface-secondary: var(--surface-raised);
+  --surface-tertiary: var(--surface-high);
+  --overlay: var(--surface-raised);
+  --overlay-shadow: var(--shadow-card);
+  --muted: var(--muted-foreground);
+
+  --accent: var(--primary);
+  --accent-foreground: #ffffff;
+  --accent-hover: #9a33ee;
+  --accent-soft-foreground: var(--accent-text);
+
+  --default: var(--surface-raised);
+  --default-foreground: var(--foreground);
+  --default-hover: var(--surface-high);
+
+  --field-background: var(--surface-raised);
+  --field-foreground: var(--foreground);
+  --field-placeholder: var(--muted-foreground);
+  --field-hover: var(--surface-high);
+  --field-radius: 16px;
+
+  --border: var(--line);
+  --separator: var(--line);
+  --focus: var(--lavender);
+  --link: var(--accent-text);
+
+  /* 8px de base: 2xl = 16px (inputs), 3xl = 24px (cards e modais) */
+  --radius: 0.5rem;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-high: var(--surface-high);
+  --color-line: var(--line);
+  --color-accent-text: var(--accent-text);
+  --color-lavender: var(--lavender);
+  --color-primary: var(--primary);
+  --color-primary-deep: var(--primary-deep);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@utility bg-glow {
+  background-image: var(--gradient-glow);
+}
+
+@utility text-headline-accent {
+  background-image: var(--gradient-headline);
+  background-clip: text;
+  color: transparent;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Botão principal: gradiente + glow discreto, só no CTA prioritário */
+.button--primary {
+  background-image: var(--gradient-action);
+  box-shadow: 0 0 24px rgba(139, 23, 233, 0.3);
+}
+
+@media (hover: hover) {
+  .button--primary:hover {
+    box-shadow: var(--shadow-glow);
+  }
+}
+
+.button--secondary {
+  --button-fg: var(--foreground);
+}
+
+/* Área de toque confortável em mobile */
+.button--lg {
+  height: 3rem;
+  font-size: 0.875rem;
+}
+
+.input,
+.select__trigger {
+  min-height: 3rem;
+  align-items: center;
+}
+
+.card {
+  padding: 1.5rem;
+}
+
+@utility shadow-card {
+  box-shadow: var(--shadow-card);
 }
