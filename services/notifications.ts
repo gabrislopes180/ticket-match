@@ -152,7 +152,7 @@ export async function sendMatchEmail({
     `;
 
   return resend.emails.send({
-    from: `Ticket Match <avisos@${process.env.RESEND_FROM_EMAIL || "resend.dev"}>`,
+    from: `Ticket Match <${process.env.RESEND_FROM_EMAIL}>`,
     to: [destination],
     subject,
     html,
